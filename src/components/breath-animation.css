@@ -1,0 +1,4 @@
+.anim-orbit {
+    transition: transform 1s ease-in-out;
+    will-change: transform;
+}

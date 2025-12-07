@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <!-- Скрипт теми ДО ВСЬОГО, щоб уникнути FOUC -->
+    <script>
+      try {
+        const theme = localStorage.getItem("theme") ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        }
+      } catch (_) {}
+    </script>
+
+    <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      <title>Luma</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favico.png" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- 🏎️ Preload логотипів -->
+    <link rel="preload" as="image" href="/luma-logo-light.svg" />
+    <link rel="preload" as="image" href="/luma-logo-dark.svg" />
+
+    <!-- Кешування -->
+    <meta http-equiv="Cache-Control" content="max-age=86400" />
+    <meta name="theme-color" content="#F5F7FA" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <div id="menu-root"></div>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+/* Глобальні параметри для всіх скролбарних елементів */
+:root {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(100, 100, 100, 0.5) transparent;
+}
+
+/* Chrome */
+::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+  background: transparent !important;
+  transition: none !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.5) !important;
+  border-radius: 10px !important;
+  border: 2px solid transparent !important;
+  background-clip: content-box !important;
+  transition: none !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(160, 174, 192, 1) !important;
+  transition: none !important;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent !important;
+  transition: none !important;
+}

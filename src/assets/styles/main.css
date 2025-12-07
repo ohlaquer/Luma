@@ -1,0 +1,648 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== СВІТЛА ТЕМА ===== */
+:root {
+  --bg: #F5F7FA;
+  --text: #34495E;
+  --muted-text: #6b7280;
+
+  --primary: #5B7DB1;
+  --highlight-bg: #e0ecff;
+  --highlight-border: #d1d5db;
+ --card: #10141c; /* А не rgba(30, 30, 30, 0.6) або щось прозоре */
+
+  --card-bg: white;
+  --card-text: #34495E;
+
+  --burn-bg: #ffe5e5;
+  --burn-border: #ffbcbc;
+  --danger: #e53935;
+  --danger-bg: #ffcdd2;
+  --danger-text: #b71c1c;
+
+  --neutral-bg: #eeeeee;
+  --neutral-border: #cccccc;
+  --neutral-button-bg: #e0e0e0;
+  --neutral-button-text: #333;
+
+  --accent-bg: #f5f7fa;
+
+  --bubble-user: #e0e7f8;
+--bubble-luma: #e6edf5;
+--bubble-user-text: #34495e;
+--bubble-luma-text: #34495e;
+
+--header-light: #ffffff;
+}
+
+/* ===== ТЕМНА ТЕМА (ОНОВЛЕНА) ===== */
+html.dark {
+  --bg: #0f172a;
+  --text: #f8fafc;
+  --muted-text: #94a3b8;
+
+  --primary: #93c5fd;
+  --highlight-bg: rgba(255, 255, 255, 0.05);
+  --highlight-border: rgba(255, 255, 255, 0.05);
+
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-text: #f8fafc;
+
+    --panel-dark: #212840; /* суцільний фон карток у dark */
+    --panel-border-dark: rgba(148,163,184,0.12);
+
+
+    --burn-bg: rgba(255, 255, 255, 0.05);
+  --burn-border: rgba(255, 255, 255, 0.1);
+  --danger: #ef4444;
+  --danger-bg: #7f1d1d;
+  --danger-text: white;
+
+  --neutral-bg: rgba(255, 255, 255, 0.05);
+  --neutral-border: rgba(255, 255, 255, 0.1);
+  --neutral-button-bg: #374151;
+  --neutral-button-text: #f8fafc;
+
+  --accent-bg: #0f172a;
+
+  --bubble-user: #334155; /* slate-800 */
+--bubble-luma: #1e293b; /* slate-900 */
+--bubble-user-text: #f8fafc;
+--bubble-luma-text: #f8fafc;
+    --header-dark: #1b223a;
+
+}
+
+/* ===== БАЗОВІ СТИЛІ ===== */
+html {
+  background-color: var(--bg);
+  overflow-y: scroll;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===== ВИЗУАЛЬНІ КОМПОНЕНТИ ===== */
+.input-base {
+  @apply w-full px-4 py-3 text-base text-[#34495E] placeholder-gray-400 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300;
+}
+
+.button-primary {
+  @apply w-full bg-blue-500 hover:bg-blue-600 text-white text-base font-semibold py-3 px-6 rounded-xl;
+}
+
+/* ===== УТИЛІТИ ДЛЯ ТЕМИ ===== */
+body.block-theme-transition * {
+  transition: none !important;
+}
+
+body.theme-fade {
+  opacity: 0;
+}
+
+body.theme-fade-loaded {
+  opacity: 1;
+}
+
+body.disable-transitions * {
+  transition: none !important;
+}
+
+.light-visible {
+  opacity: 1;
+}
+html.dark .light-visible {
+  opacity: 0;
+}
+.dark-visible {
+  opacity: 0;
+}
+html.dark .dark-visible {
+  opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  height: 12px; /* ← менший thumb */
+  width: 12px;
+  background-color: white;
+  border: none; /* ← прибрали рамку */
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+  margin-top: -3px; /* ← центр на треку */
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  background-color: white;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.5); /* ← або замінюй на dynamicBg */
+}
+
+input[type="range"]::-moz-range-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+span[data-chip="1"] { display: inline-flex; vertical-align: baseline; }
+
+/* Усі списки в редакторі */
+.ProseMirror ul,
+.ProseMirror ol {
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+/* Крапочки/цифри */
+.ProseMirror ul { list-style: disc; }
+.ProseMirror ol { list-style: decimal; }
+
+/* Забираємо зайві відступи абзаців у пунктах списку */
+.ProseMirror li > p {
+    margin: 0;
+}
+
+/* --- ТИРЕ-СПИСОК (наш bulletList з variant="dash") --- */
+.ProseMirror ul[data-variant="dash"] {
+    list-style: none;      /* прибираємо стандартний маркер */
+    padding-left: 1.5rem;
+}
+
+/* Робимо пункт флексом, щоб тире й текст були в ОДНОМУ рядку */
+.ProseMirror ul[data-variant="dash"] > li {
+    display: flex;
+    align-items: baseline; /* щоб тире і текст були на одній висоті */
+}
+
+/* Саме "тире" */
+.ProseMirror ul[data-variant="dash"] > li::before {
+    content: "–";
+    display: inline-block;
+    margin-right: 0.5rem;
+    /* без position/left — тоді нічого не “стрибає” */
+}
+
+/* Загальне: не показувати native-маркер для порожніх пунктів */
+.ProseMirror li:has(> p:empty),
+.ProseMirror li:has(> p > br:only-child) {
+    list-style: none;
+}
+
+/* Для тире-списку: не показувати наше ::before */
+.ProseMirror ul[data-variant="dash"] li:has(> p:empty)::before,
+.ProseMirror ul[data-variant="dash"] li:has(> p > br:only-child)::before {
+    content: "";
+}
+
+/* абзац усередині li без зайвих відступів */
+.ProseMirror li > p { margin: 0; }
+
+/* порожній абзац — нульові відступи */
+.ProseMirror p:empty,
+.ProseMirror p:has(> br:only-child) {
+    margin: 0;
+}
+
+/* якщо юзаєш тире-варіант */
+.ProseMirror ul[data-variant="dash"] { list-style: none; padding-left: 1.5rem; }
+.ProseMirror ul[data-variant="dash"] > li { display: flex; align-items: baseline; }
+.ProseMirror ul[data-variant="dash"] > li::before { content: "–"; display: inline-block; margin-right: .5rem; }
+
+/* не показувати маркери, коли пункт порожній */
+.ProseMirror li:has(> p:empty),
+.ProseMirror li:has(> p > br:only-child) { list-style: none; }
+.ProseMirror ul[data-variant="dash"] li:has(> p:empty)::before,
+.ProseMirror ul[data-variant="dash"] li:has(> p > br:only-child)::before { content: ""; }
+
+.ProseMirror .ProseMirror-gapcursor { display: none; }
+
+.ProseMirror p {
+    margin: 0;
+}
+.ProseMirror > * + * {
+    margin-top: 0.5rem;
+}
+/* не даємо порожнім p робити «сходинки» марджинами */
+.ProseMirror p { margin: 0; }
+
+/* акуратний відступ лише між блоками з контентом */
+.ProseMirror > * + * { margin-top: 0.5rem; }
+
+/* (не обов'язково) якщо є плейсхолдер — щоб він не роздував висоту */
+.ProseMirror p:empty { height: 0; }
+
+.ProseMirror p { margin: 0; }
+.ProseMirror > * + * { margin-top: 0.5rem; }
+
+.ProseMirror p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    opacity: .55;
+    pointer-events: none;
+    float: left;     /* не накриває текст */
+    height: 0;       /* не роздуває висоту */
+    white-space: nowrap;
+}
+
+.ProseMirror blockquote {
+    position: relative;
+    margin: 0.5rem 0;
+    padding-left: 1rem; /* місце для лінії */
+    background-color: var(--hover); /* фон адаптивний */
+    border-radius: 8px; /* заокруглення блоку */
+    color: var(--text); /* колір тексту під тему */
+}
+
+.ProseMirror blockquote::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 0;
+    width: 6px;
+    background-color: var(--highlight-border); /* адаптивна лінія */
+    border-radius: 6px; /* закруглення лінії */
+}
+
+
+/* корінь календаря */
+.luma-datepicker.react-datepicker {
+    background: var(--card-bg);
+    border: 1px solid var(--hover);
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.08);
+    font-family: inherit;
+}
+
+/* шапка ми вже кастомимо через renderCustomHeader, але лишимо дефолтну без різких кольорів */
+.luma-datepicker .react-datepicker__header {
+    background: transparent;
+    border-bottom: none;
+    padding-top: 6px;
+}
+
+/* назви днів (пн, вт, …) */
+.luma-datepicker .react-datepicker__day-names {
+    margin-top: 4px;
+}
+.luma-datepicker .react-datepicker__day-name {
+    color: var(--muted);
+    width: 2rem;
+    line-height: 2rem;
+    margin: .1rem;
+    font-size: 12px;
+}
+
+/* самі дні */
+.luma-datepicker .react-datepicker__week { display: flex; }
+.luma-datepicker .react-datepicker__day,
+.luma-datepicker .react-datepicker__day--outside-month {
+    color: var(--text);
+    width: 2rem; height: 2rem;
+    line-height: 2rem;
+    margin: .1rem;
+    border-radius: 8px;
+    transition: transform .12s ease, background-color .12s ease, color .12s ease;
+}
+.luma-datepicker .react-datepicker__day--outside-month {
+    color: rgba(127,127,127,.55);
+}
+
+/* hover */
+.luma-datepicker .react-datepicker__day:not(.react-datepicker__day--disabled):hover {
+    background: var(--hover);
+    transform: translateY(-1px);
+}
+
+/* вибраний/фокус */
+.luma-datepicker .react-datepicker__day--selected,
+.luma-datepicker .react-datepicker__day--keyboard-selected {
+    background: var(--primary);
+    color: white;
+}
+
+/* сьогоднішній день — тонке кільце */
+.luma-datepicker .react-datepicker__day--today {
+    box-shadow: inset 0 0 0 2px var(--primary);
+}
+
+/* disabled */
+.luma-datepicker .react-datepicker__day--disabled {
+    opacity: .4; cursor: not-allowed;
+}
+
+/* dark theme підтримка */
+.dark .luma-datepicker.react-datepicker {
+    background: var(--panel-dark);
+    border-color: var(--panel-border-dark);
+    box-shadow: 0 6px 24px rgba(0,0,0,.25);
+}
+.dark .luma-datepicker .react-datepicker__day-name { color: rgba(255,255,255,.65); }
+.dark .luma-datepicker .react-datepicker__day { color: var(--text); }
+.dark .luma-datepicker .react-datepicker__day--outside-month { color: rgba(255,255,255,.35); }
+
+/* Робимо плавний переліт spotlight у Joyride */
+.react-joyride__spotlight {
+    transition: all 0.4s ease-in-out !important;
+}
+
+/* 🎯 Тонке вирівнювання інтерфейсу для MacOS */
+@supports (-webkit-overflow-scrolling: touch) {
+    header {
+        transform: scale(0.95);
+        transform-origin: top center;
+        transition: transform 0.2s ease;
+    }
+}
+
+
+
+@media screen and (max-width: 1600px) {
+    header nav {
+        transform: scale(0.92);
+        transform-origin: center;
+    }
+
+    header a,
+    header button {
+        font-size: 0.95rem !important;
+    }
+
+    header .px-6 {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
+
+
+/* accessibility.css */
+.accessible {
+    line-height: 1.8 !important;
+    letter-spacing: 0.04em !important;
+    word-spacing: 0.1em !important;
+    font-size: 18px !important;
+}
+
+.accessible * {
+    color: #111 !important;
+    background-color: #fff !important;
+}
+
+html.dark.accessible * {
+    color: #fafafa !important;
+    background-color: #111 !important;
+}
+
+.accessible button:focus,
+.accessible a:focus {
+    outline: 3px solid #007bff !important;
+    outline-offset: 2px;
+}
+
+/* ========================== */
+/* Дислексія / Inclusion шрифт */
+/* ========================== */
+
+@font-face {
+    font-family: "Adys";
+    src: url("../fonts/ADYSV6-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Adys";
+    src: url("../fonts/ADYSV6-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* режим дислексії */
+.dyslexia-font,
+.dyslexia-font * {
+    font-family: "Adys", Arial, sans-serif !important;
+    font-size: 18px !important;
+    line-height: 1.75 !important;
+    letter-spacing: 0.04em !important;
+    word-spacing: 0.08em !important;
+}
+
+/* навіть для SVG і форм */
+.dyslexia-font svg text,
+.dyslexia-font button,
+.dyslexia-font input,
+.dyslexia-font textarea,
+.dyslexia-font select {
+    font-family: "Adys", Arial, sans-serif !important;
+}
+
+.dyslexia-font *::before,
+.dyslexia-font *::after {
+    font-family: "Adys", Arial, sans-serif !important;
+}
+
+/* ========================== */
+/*       Високий контраст     */
+/* ========================== */
+
+.high-contrast,
+.high-contrast * {
+    color: #000 !important;
+    background-color: #fff !important;
+    border-color: #000 !important;
+}
+
+html.dark.high-contrast,
+html.dark.high-contrast * {
+    color: #fff !important;
+    background-color: #000 !important;
+    border-color: #fff !important;
+}
+
+.colorblind-protanopia {
+    filter: sepia(1) saturate(80%) hue-rotate(330deg);
+}
+
+.colorblind-deuteranopia {
+    filter: sepia(1) saturate(70%) hue-rotate(20deg);
+}
+
+.colorblind-tritanopia {
+    filter: sepia(1) saturate(60%) hue-rotate(190deg);
+}
+
+.colorblind-achromatopsia {
+    filter: grayscale(1) contrast(1.1);
+}
+
+/* ===== SOFT MODE ===== */
+html.soft {
+    --bg: #f8f4ec;
+    --text: #3a3a3a;
+    --muted-text: #5c5c5c;
+    --primary: #c1a78e;
+    --highlight-bg: #f0e8df;
+    --highlight-border: #e2d6c8;
+
+    --card-bg: #fcfaf7;
+    --card-text: #3a3a3a;
+    --neutral-bg: #ede9e4;
+    --neutral-border: #d5ccc2;
+
+    --accent-bg: #f8f4ec;
+    --bubble-user: #eae3da;
+    --bubble-luma: #f3eee7;
+    --bubble-user-text: #3a3a3a;
+    --bubble-luma-text: #3a3a3a;
+}
+
+/* === Поправка позиціювання для меню сортування (як AccessibilitySettings) === */
+.SortPopoverFix,
+.SortPopoverFix * {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    letter-spacing: normal !important;
+    word-spacing: normal !important;
+}
+
+/* 📱 адаптація для мобільних */
+@media (max-width: 640px) {
+    .SortPopoverFix {
+        position: fixed !important;
+        left: 50% !important;
+        top: 3.5rem !important;
+        transform: translateX(-50%) !important;
+        width: 92vw !important;
+        max-width: 22rem !important;
+        background: var(--bg) !important;
+        border-radius: 1rem !important;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15) !important;
+        border: 1px solid var(--hover) !important;
+        overflow-y: auto !important;
+        z-index: 60 !important;
+        max-height: 80vh !important;
+    }
+}
+
+/* 🧠 iOS Safe Areas для повноекранного вигляду */
+.sort-fullscreen-fix {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    background: var(--accent-bg);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-top: env(safe-area-inset-top);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+    touch-action: none;
+    z-index: 55;
+}
+
+.wave-ping {
+    overflow: visible;
+}
+
+.wave-ping::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;          /* ← менше */
+    height: 140%;         /* ← менше */
+    transform: translate(-50%, -50%) scale(0.8);
+    border-radius: 9999px;
+    border: 1.5px solid rgba(255, 255, 255, 0.45);
+    pointer-events: none;
+    opacity: 0.8;
+    animation: waveAnimation 1.5s ease-out infinite; /* ← коротше */
+}
+
+@keyframes waveAnimation {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0.8;
+    }
+    60% {
+        transform: translate(-50%, -50%) scale(1.15); /* ← невелике розширення */
+        opacity: 0.25;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.25);
+        opacity: 0;
+    }
+}
+.is-mac .journal-scale-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 51;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;               /* 👈 Включаємо центрування */
+    align-items: center;         /* Y */
+    justify-content: center;     /* X */
+
+    transform: scale(0.88);
+    transform-origin: center;
+
+    pointer-events: none;        /* щоб не блокувати */
+}
+
+.is-mac .journal-scale-wrapper * {
+    pointer-events: auto;        /* повертає кліки всередині */
+}
+
+.compact-sort h3 {
+    margin-bottom: 0.25rem !important;
+    font-size: 0.8rem !important;
+}
+
+.compact-sort .group-title {
+    padding: 0.1rem 0.4rem !important;
+    font-size: 0.65rem !important;
+    opacity: 0.8;
+}
+
+.compact-sort .sort-item {
+    padding: 0.35rem 0.5rem !important;
+    border-radius: 0.6rem !important;
+}
+
+.compact-sort .sort-item span {
+    font-size: 0.8rem !important;
+}
+
+.compact-sort .sort-item svg {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+.compact-sort .divider {
+    margin: 0.2rem 0 !important;
+}
+/* Зменшуємо Header ТІЛЬКИ на Mac */
+.is-mac .desktop-header {
+    zoom: 0.94;         /* найкраще виглядає */
+    transform-origin: top center;
+}

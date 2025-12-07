@@ -1,0 +1,46 @@
+/* ===== СВІТЛА ТЕМА ===== */
+:root {
+  --bg: #f5f7fa;              /* фон для body, як у футері */
+  --text: #34495e;            /* основний текст */
+  --card-bg: #e9edf3;         /* фон карток (як навбар) */
+  --card-text: #34495e;       /* текст у картках */
+  --accent-bg: #f5f7fa;       /* футер, хедер */
+  --hover: #e3ebf4;
+  --pill-bg: #e0e7ff;
+  --button-bg: #e0e7ff;
+  --button-text: #34495e;
+}
+
+/* ===== ТЕМНА ТЕМА ===== */
+.test-dark,
+.dark {
+  --bg: #0f172a;              /* темний body */
+  --text: #e2e8f0;
+  --card-bg: #1e293b;
+  --card-text: #f8fafc;
+  --accent-bg: #0f172a;
+  --hover: #334155;
+  --pill-bg: #475569;
+  --button-bg: #334155;
+  --button-text: #f8fafc;
+}
+
+/* ===== БАЗОВІ СТИЛІ ===== */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.test-page {
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  backface-visibility: hidden;
+  will-change: transform, background-color;
+}
