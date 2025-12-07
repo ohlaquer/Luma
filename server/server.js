@@ -12,6 +12,12 @@ import { fileURLToPath } from "url";
 import CryptoJS from "crypto-js/core.js";
 import AES from "crypto-js/aes.js";
 import Utf8 from "crypto-js/enc-utf8.js";
+import OpenAI from "openai";
+import "dotenv/config";
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+});
 
 
 // Firebase Admin SDK 👇
@@ -174,6 +180,43 @@ app.post("/api/analyze", async (req, res) => {
         res.status(500).json({ error: "server_error" });
     }
 });
+
+app.post("/api/moderate", async (req, res) => {
+    try {
+        console.log("📥 MODERATION REQ:", req.body);
+
+        const { text } = req.body;
+
+        if (!text) {
+            return res.status(400).json({ error: "No text provided" });
+        }
+
+        const response = await openai.moderations.create({
+            model: "omni-moderation-latest",
+            input: text,
+        });
+
+        const result = response.results[0];
+
+        console.log("✅ Moderation result:", result);
+
+        res.json({
+            ok: true,
+            flagged: result.flagged,
+            categories: result.categories,
+        });
+
+    } catch (err) {
+        console.error("🔥 MODERATION ERROR:", err);
+        res.status(500).json({
+            ok: false,
+            error: err.message,
+        });
+    }
+});
+
+
+
 
 // -------------------- ЧАТ З LUMA --------------------
 app.post("/api/chat", async (req, res) => {
