@@ -12,11 +12,3 @@ LEGACY/
 open-luma.bat
 cors.json
 
-#середовище
-.env
-.env.*.local
-
-#Firebase ключі
-src/firebase.js
-
-server/serviceAccountKey.json
